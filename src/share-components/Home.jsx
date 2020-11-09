@@ -8,15 +8,6 @@ const Home = (props) => {
   const [rating, setRating] = useState(1);
   const [isHighest, setHighest] = useState(true)
 
-  useEffect(() => {
-    if (isHighest) {
-      setUsers(users.sort((a, b) => { return a.rating - b.rating }))
-    } else {
-      setUsers(users.sort((a, b) => { return b.rating - a.rating }))
-    }
-  })
-
-
   return (
     <>
       <Segment>
@@ -42,7 +33,9 @@ const Home = (props) => {
         setRating={setRating}
       />
 
-      {users.map((Item, i) => {
+      {users.sort((a, b) => {
+        return !isHighest ? a.rating - b.rating : b.rating - a.rating
+      }).map((Item, i) => {
         return (
           <Segment
             key={i}
